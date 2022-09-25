@@ -1,4 +1,6 @@
-
+#Heet Sakaria & Siddhant Shah
+#CS7180 
+#9/24/2022
 import torch
 from collections import namedtuple
 from torchvision import models

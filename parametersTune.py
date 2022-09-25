@@ -1,4 +1,6 @@
-
+#Heet Sakaria & Siddhant Shah
+#CS7180 
+#9/24/2022
 import torch
 from image_operations import gram_matrix
 

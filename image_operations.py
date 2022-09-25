@@ -1,3 +1,6 @@
+#Heet Sakaria & Siddhant Shah
+#CS7180 
+#9/24/2022
 import cv2 as cv
 import os
 import numpy as np

@@ -1,3 +1,6 @@
+#Heet Sakaria & Siddhant Shah
+#CS7180 
+#9/24/2022
 from torch.autograd import Variable
 import os
 import torch
