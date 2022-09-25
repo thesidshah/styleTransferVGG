@@ -56,6 +56,8 @@ def generate_out_img_name(config):
 def gram_matrix(x, should_normalize=True):
     '''
     Generate gram matrices of the representations of content and style images.
+    params:
+    should_normalize: Whether the gram matrix should have normalized values based on the number of channels,height and width.
     '''
     (b, ch, h, w) = x.size()
     features = x.view(b, ch, w * h)

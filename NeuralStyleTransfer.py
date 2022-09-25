@@ -8,7 +8,14 @@ from torch.optim import LBFGS
 
 def neural_style_transfer(config):
     '''
-    The main Neural Style Transfer method.
+    This method uses functions from model.py, parametersTune.py and image_operations.py to implement a fine-tuned VGG-19 architecture that adapts the Style image to a Content Image. 
+    The steps are:
+    a) preprocess the image to the input size.
+    b) define an optimzation function for fine-tuning the vgg19 architecture.
+    c) save images based on saving frequency (note this parameter needs to be changed in the function's code: save_and_maybe_display.)
+
+    params:
+    config: contains a dictionary with the following keys- content_img_name, style_img_name, content_weight, style_weight, height, tv_weight, content_images_dir, style_images_dir, ouptut_images_dir and img_format.
     '''
     content_img_path = os.path.join(config['content_images_dir'], config['content_img_name'])
     style_img_path = os.path.join(config['style_images_dir'], config['style_img_name'])
@@ -49,27 +56,9 @@ def neural_style_transfer(config):
         return total_loss
         
     optimizer.step(closure)
-    
-    # def predict(neural_net):
-    #     content_images_dir = os.path.join(default_resource_dir, 'content-images')
-    #     for content_file_name in os.listdir(content_images_dir):
-    #         content_img_path = os.path.join(config['content_images_dir'], content_file_name)
-    #         content_img = prepare_img(content_img_path, config['height'], device)
-    #         output = neural_net(content_img)
-    #         out_img = output.squeeze(axis=0).to('cpu').detach().numpy()
-    #         out_img = np.moveaxis(out_img, 0, 2)
-    #         img_format = config['img_format']
-    #         out_img_name = str(content_file_name).zfill(img_format[0]) + img_format[1] 
-    #         dump_img = np.copy(out_img)
-    #         dump_img += np.array(IMAGENET_MEAN_255).reshape((1, 1, 3))
-    #         dump_img = np.clip(dump_img, 0, 255).astype('uint8')
-    #         cv.imwrite(os.path.join(dump_path, out_img_name), dump_img[:, :, ::-1])
-
-
-    # predict(neural_net=neural_net)
-    
     return dump_path
 
+#Code to initialize the parameters and call the Neural Style Transfer function.
 
 PATH = ''
 CONTENT_IMAGE = 'c1.jpg'
@@ -91,11 +80,11 @@ img_format = (4, '.jpg')
 # iterate over files in
 # that directory
 
-for contentfilename in list(['c8.jpg']):
-    for stylefilename in list(['s1.jpg','s3.jpg','s4.jpg','s6.jpg','s9.jpg','s12.jpg','s8.jpg','s23.jpg']):
+for contentfilename in list(['c6.jpg']):
+    for stylefilename in list(['c7.jpg']):
         optimization_config = {'content_img_name': contentfilename, 'style_img_name': stylefilename, 'height': 400, 'content_weight': 100000.0, 'style_weight': 30000.0, 'tv_weight': 1.0}
         optimization_config['content_images_dir'] = content_images_dir
-        optimization_config['style_images_dir'] = style_images_dir
+        optimization_config['style_images_dir'] = content_images_dir
         optimization_config['output_img_dir'] = output_img_dir
         optimization_config['img_format'] = img_format
 

@@ -4,7 +4,7 @@ from image_operations import gram_matrix
 
 def build_loss(neural_net, optimizing_img, target_representations, content_feature_maps_index, style_feature_maps_indices, config):
     '''
-    Calculate content_loss, style_loss, and total_variation_loss.
+    Calculates the three losses in the method aka content_loss, style_loss, and total_variation_loss.
     '''
     target_content_representation = target_representations[0]
     target_style_representation = target_representations[1]
@@ -23,6 +23,6 @@ def build_loss(neural_net, optimizing_img, target_representations, content_featu
 
 def total_variation(y):
     '''
-    Calculate total variation.
+    Calculates the total variation of an array (used for measuring variational loss).
     '''
     return torch.sum(torch.abs(y[:, :, :, :-1] - y[:, :, :, 1:])) + torch.sum(torch.abs(y[:, :, :-1, :] - y[:, :, 1:, :]))

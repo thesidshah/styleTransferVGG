@@ -6,10 +6,8 @@ from torchvision.models import VGG19_Weights
 
 class Vgg19(torch.nn.Module):
     """
-    Used in the original NST paper, only those layers are exposed which were used in the original paper
-
-    'conv1_1', 'conv2_1', 'conv3_1', 'conv4_1', 'conv5_1' were used for style representation
-    'conv4_2' was used for content representation (although they did some experiments with conv2_2 and conv5_2)
+    The following layers are exposed 'conv1_1', 'conv2_1', 'conv3_1', 'conv4_1', 'conv5_1' for style representation and 'conv4_2' was used for content representation based on the original paper.
+    Note:: They had also experimented with conv2_2 and conv5_2 for content representation.
     """
     def __init__(self, requires_grad=False, show_progress=False, use_relu=True):
         super().__init__()
@@ -48,6 +46,9 @@ class Vgg19(torch.nn.Module):
                 param.requires_grad = False
 
     def forward(self, x):
+        '''
+        Returns the weights for the fine-tuned layers.
+        '''
         x = self.slice1(x)
         layer1_1 = x
         x = self.slice2(x)
@@ -67,7 +68,7 @@ class Vgg19(torch.nn.Module):
 
 def prepare_model(device):
     '''
-    Load VGG19 model into gpu cache.
+    Load the VGG19 model into gpu cache with paramters.
     '''
     model = Vgg19(requires_grad=False, show_progress=True) #Refer above class
     content_feature_maps_index = model.content_feature_maps_index
